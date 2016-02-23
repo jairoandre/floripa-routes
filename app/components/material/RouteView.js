@@ -11,9 +11,9 @@ import SearchMap from '../common/SearchMap';
 
 export default class RouteView extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
-    this.state = {tab: 'byName'};
+    this.state = {tab: 'byName', term: ''};
   }
 
   render() {
@@ -25,8 +25,7 @@ export default class RouteView extends Component {
     }
 
     const handleSearchForMap = (term) => {
-      _setState({tab: "byName"});
-      this.refs.searchInput = term;
+      _setState({tab: "byName", term: term});
       this.props.handleSearch(term);
     }
 
@@ -46,21 +45,21 @@ export default class RouteView extends Component {
     }
 
     const handleInputChange = (event) => {
-      this.refs.searchInput = event.target.value;
-    }
-
-    const handleTabChange = (value) => {
-      _setState({tab: value});
+      _setState({term: event.target.value});
     }
 
     const renderContent = () => {
       if (this.props.show) {
         return (
-          <Tabs value={this.state.tab} onChange={handleTabChange}>
+          <Tabs value={this.state.tab} onChange={(value) => {if (value === 'byName' || value === 'pickMap') _setState({tab: value});}}>
               <Tab label="By name" value="byName">
                 <div style={{margin: '0 10px'}}>
-                  <TextField ref="searchInput" fullWidth floatingLabelText="WHERE?"
-                             onChange={handleInputChange}/>
+                  <TextField
+                    ref="searchInput"
+                    value={this.state.term}
+                    fullWidth
+                    floatingLabelText="WHERE?"
+                    onChange={handleInputChange}/>
                   <RaisedButton
                     onClick={() => {this.props.handleSearch(this.refs.searchInput)}}
                     secondary={true}

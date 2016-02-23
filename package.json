@@ -10,7 +10,7 @@
     "build": "node config && webpack && cordova build",
     "start": "node config && webpack-dev-server --progress --hot --port 3030 --colors",
     "phonegap": "node config && webpack --progress --colors && phonegap serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --colors --compilers js:babel-register --recursive ./test/**/*.js"
   },
   "dependencies": {
     "material-design-icons": "^2.1.1",
@@ -34,13 +34,19 @@
     "babel-plugin-transform-object-rest-spread": "^6.3.13",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
+    "babel-register": "^6.5.2",
+    "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "elementtree": "^0.1.6",
+    "mocha": "^2.4.5",
+    "mocha-babel": "^3.0.3",
     "mocha-loader": "^0.7.1",
     "postcss-loader": "^0.8.0",
     "react-hot-loader": "^1.3.0",
     "react-transform-hmr": "^1.0.2",
     "replace": "^0.3.0",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0",

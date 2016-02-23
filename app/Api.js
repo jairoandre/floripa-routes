@@ -7,14 +7,23 @@ const stopsByRouteIdUrl = 'https://api.appglu.com/v1/queries/findStopsByRouteId/
 const departuresByRouteIdUrl = 'https://api.appglu.com/v1/queries/findDeparturesByRouteId/run';
 
 export const searchRoutesByTerm = (term) => {
+  if(term === null || term === '') {
+    return [];
+  }
   return httpPost(searchRouteUrl, JSON.stringify({"params": {"stopName": "%" + term + "%"}}));
 }
 
 export const searchStopsByRouteId = (routeId) => {
+  if(routeId === null || routeId === '') {
+    return [];
+  }
   return httpPost(stopsByRouteIdUrl, JSON.stringify({"params": {"routeId": routeId}}));
 }
 
 export const searchDeparturesByRouteId = (routeId) => {
+  if(routeId === null || routeId === '') {
+    return [];
+  }
   return httpPost(departuresByRouteIdUrl, JSON.stringify({"params": {"routeId": routeId}}));
 }
 
