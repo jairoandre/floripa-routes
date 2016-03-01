@@ -1,0 +1,68 @@
+html {
+  box-sizing: border-box;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+  margin: 0;
+  padding: 0;
+}
+
+:global(.show-appear), :global(.show-enter) {
+  opacity: 0.01;
+}
+
+:global(.show-appear.show-appear-active), :global(.show-enter.show-enter-active) {
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+:global(.show-leave) {
+  opacity: 1;
+  position: absolute;
+}
+
+:global(.show-leave.show-leave-active) {
+  opacity: 0.01;
+  transition: 250ms ease-in-out;
+  position: absolute;
+}
+
+:global(.loading-enter) {
+  opacity: 0.01;
+  transform: translateY(-200px);
+}
+
+:global(.loading-enter.loading-enter-active) {
+  opacity: 1;
+  transition: 300ms ease;
+  transform: translateY(0px);
+}
+
+:global(.loading-leave) {
+  opacity: 1;
+}
+
+:global(.loading-leave.loading-leave-active) {
+  opacity: 0.01;
+  transition: 250ms ease-in-out;
+}
+
+.content {
+  padding: 20px;
+}
+
+.marginTop {
+  margin-top: 20px;
+}
