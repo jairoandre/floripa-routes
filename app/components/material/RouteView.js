@@ -13,7 +13,7 @@ export default class RouteView extends Component {
 
   constructor (props) {
     super(props);
-    this.state = {tab: 'byName', term: ''};
+    this.state = {tab: 'byName'};
   }
 
   render() {
@@ -25,7 +25,7 @@ export default class RouteView extends Component {
     }
 
     const handleSearchForMap = (term) => {
-      _setState({tab: "byName", term: term});
+      _setState({tab: "byName"});
       this.props.handleSearch(term);
     }
 
@@ -45,7 +45,7 @@ export default class RouteView extends Component {
     }
 
     const handleInputChange = (event) => {
-      _setState({term: event.target.value});
+      this.refs.searchInput = event.target.value;
     }
 
     const renderContent = () => {
@@ -56,7 +56,6 @@ export default class RouteView extends Component {
                 <div style={{margin: '0 10px'}}>
                   <TextField
                     ref="searchInput"
-                    value={this.state.term}
                     fullWidth
                     floatingLabelText="WHERE?"
                     onChange={handleInputChange}/>

@@ -83,6 +83,7 @@ export default class MainView extends Component {
      * Handle action to search button
      */
     const handleSearch = (term) => {
+      _setState({term: term});
       searchRoutes(term);
     }
 
