@@ -16,20 +16,17 @@ export default class RouteView extends Component {
     this.state = {tab: 'byName'};
   }
 
-  render() {
+  _setState (newState) {
+    this.setState({...this.state, ...newState});
+  }
 
-    const styles = require('../../main.css');
+  handleSearchForMap (term) {
+    this._setState({tab: "byName"});
+    this.props.handleSearch(term);
+  }
 
-    const _setState = (newState) => {
-      this.setState({...this.state, ...newState});
-    }
-
-    const handleSearchForMap = (term) => {
-      _setState({tab: "byName"});
-      this.props.handleSearch(term);
-    }
-
-    const listView = () => {
+  listView () {
+      const styles = require('../../main.css');
       if (this.props.routes.length > 0) {
         return (
           <List subheader={'RESULTS FOR "' + this.props.term.toUpperCase() + '"'} className={styles.marginTop}>
@@ -42,37 +39,33 @@ export default class RouteView extends Component {
       } else if (this.props.searched) {
         return (<List subheader={'NO RESULTS FOR "' + this.props.term.toUpperCase() + '"'} className={styles.marginTop}/>);
       }
-    }
+  }    
 
-    const handleInputChange = (event) => {
-      this.refs.searchInput = event.target.value;
-    }
-
-    const renderContent = () => {
+  renderContent () {
       if (this.props.show) {
         return (
-          <Tabs value={this.state.tab} onChange={(value) => {if (value === 'byName' || value === 'pickMap') _setState({tab: value});}}>
+          <Tabs value={this.state.tab} onChange={(value) => {if (value === 'byName' || value === 'pickMap') this._setState({tab: value});}}>
               <Tab label="By name" value="byName">
                 <div style={{margin: '0 10px'}}>
                   <TextField
                     ref="searchInput"
                     fullWidth
                     floatingLabelText="WHERE?"
-                    onChange={handleInputChange}/>
+                    onChange={(event) => { this.refs.searchInput = event.target.value }}/>
                   <RaisedButton
                     onClick={() => {this.props.handleSearch(this.refs.searchInput)}}
-                    secondary={true}
+                    secondary
                     label="SEARCH"/>
                 </div>
                 <ReactCSSTransitionGroup
                   transitionName="show"
                   transitionEnterTimeout={300}
                   transitionLeaveTimeout={250}>
-                  {listView()}
+                  {this.listView()}
                 </ReactCSSTransitionGroup>
               </Tab>
               <Tab label="Pick on map" value="pickMap">
-                <SearchMap lat={-27.596650} lng={-48.559747} handleSearchForMap={handleSearchForMap}/>
+                <SearchMap lat={-27.596650} lng={-48.559747} handleSearchForMap={this.handleSearchForMap}/>
               </Tab>
             </Tabs>
         );
@@ -81,7 +74,8 @@ export default class RouteView extends Component {
       }
     }
 
-    return <div>{renderContent()}</div>;
+  render() {
+    return <div>{this.renderContent()}</div>;
   }
 
 }
